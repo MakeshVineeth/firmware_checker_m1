@@ -40,9 +40,16 @@ ThemeData getTheme(BuildContext context, Brightness brightness) {
 
 Future<http.Response> getResponse(String url) async {
   try {
-    String httpTag = 'https://';
-    return await http.get('$httpTag$url');
+    return await http.get(url);
   } catch (e) {
     return null;
   }
 }
+
+void showAbout(BuildContext context) => showAboutDialog(
+    context: context,
+    applicationIcon: ImageIcon(AssetImage('assets/logo.png')),
+    applicationName: appTitle,
+    applicationVersion: '1.0',
+    applicationLegalese:
+        'This app tells you the current firmware of your Asus Zenfone Max Pro M1. If your current firmware is newer than what is available in offline database, then it will do an online check for the same and give you the firmware information. App Made by @DaftPunker007. Thanks to @ShanuDey for his firmware JSON file.');

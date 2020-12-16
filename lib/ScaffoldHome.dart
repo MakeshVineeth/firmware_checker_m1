@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
         Map buildInfos = data['Metabuild_Info'];
         String timeStamp = buildInfos['Time_Stamp'];
         timeStamp = timeStamp.split(' ').elementAt(0);
-
+        timeStamp = '2020-11-08';
         String firmwareJsonFile = await DefaultAssetBundle.of(context)
             .loadString("assets/firmware.json");
         final jsonResult = json.decode(firmwareJsonFile) as Map;
@@ -81,7 +81,13 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(appTitle),
         centerTitle: true,
-        actions: [CycleThemeIconButton()],
+        actions: [
+          CycleThemeIconButton(),
+          IconButton(
+            onPressed: () => showAbout(context),
+            icon: Icon(Icons.info_rounded),
+          )
+        ],
       ),
       body: FutureBuilder(
         future: getRootAccess(),
@@ -129,6 +135,9 @@ class _HomeState extends State<Home> {
                         title: 'Root Access',
                         subtitle: _rootStatus ? 'Granted' : 'Denied',
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       FutureBuilder(
                         future: checkVer(),
                         builder: (context, snapshotStr) {
@@ -147,7 +156,7 @@ class _HomeState extends State<Home> {
                 ),
               ],
               childAnimationBuilder: (widget) => SlideAnimation(
-                duration: const Duration(milliseconds: 375),
+                duration: const Duration(milliseconds: 500),
                 horizontalOffset: MediaQuery.of(context).size.width / 3,
                 child: FadeInAnimation(
                   duration: const Duration(milliseconds: 375),
@@ -166,6 +175,6 @@ class _HomeState extends State<Home> {
 
     // For loading
     else
-      return LoadingIndicator();
+      return Center(child: LoadingIndicator());
   }
 }

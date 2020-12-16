@@ -137,15 +137,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_launcher_icons:
+  flutter_fadein:
     dependency: "direct main"
+    description:
+      name: flutter_fadein
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.1"
+  flutter_launcher_icons:
+    dependency: "direct dev"
     description:
       name: flutter_launcher_icons
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.1"
   flutter_rename_app:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: flutter_rename_app
       url: "https://pub.dartlang.org"
