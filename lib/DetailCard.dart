@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firmware_checker_m1/constantVals.dart';
 
 class DetailCard extends StatelessWidget {
   final String title;
@@ -6,15 +7,9 @@ class DetailCard extends StatelessWidget {
 
   DetailCard({@required this.title, @required this.subtitle});
 
-  final borderShape = RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(20.0),
-  );
-
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: borderShape,
-      elevation: 2.0,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListTile(

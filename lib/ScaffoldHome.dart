@@ -20,10 +20,15 @@ class _HomeState extends State<Home> {
   bool _rootStatus = false;
   String firmwareVer;
   final verInfo = '/firmware/verinfo/ver_info.txt';
+  final snack = SnackBar(
+    content: Text('Refreshed.'),
+    duration: const Duration(milliseconds: 375),
+  );
 
-  Future<void> getRootAccess() async {
+  Future<bool> getRootAccess() async {
     bool rootStatus = await Root.isRooted();
     _rootStatus = rootStatus;
+    return rootStatus;
   }
 
   Future<String> checkVer() async {
@@ -82,7 +87,19 @@ class _HomeState extends State<Home> {
         future: getRootAccess(),
         builder: (context, snapshot) => loadWidgets(snapshot),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => doUpdate(),
+        child: Icon(Icons.refresh_rounded),
+      ),
     );
+  }
+
+  void doUpdate() async {
+    bool status = await getRootAccess();
+    setState(() {
+      _rootStatus = status;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(snack);
   }
 
   Future<void> setStatusBarColor() async {
@@ -130,7 +147,8 @@ class _HomeState extends State<Home> {
                 ),
               ],
               childAnimationBuilder: (widget) => SlideAnimation(
-                horizontalOffset: 50.0,
+                duration: const Duration(milliseconds: 375),
+                horizontalOffset: MediaQuery.of(context).size.width / 3,
                 child: FadeInAnimation(
                   duration: const Duration(milliseconds: 375),
                   child: widget,
