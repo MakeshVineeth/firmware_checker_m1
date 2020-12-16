@@ -2,12 +2,14 @@ import 'package:firmware_checker_m1/ErrorWidget.dart';
 import 'package:firmware_checker_m1/helperFunctions.dart';
 import 'package:firmware_checker_m1/loadingIndicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:http/http.dart';
 import 'package:root/root.dart';
 import 'dart:convert';
 import 'package:firmware_checker_m1/DetailCard.dart';
 import 'package:firmware_checker_m1/constantVals.dart';
+import 'package:theme_provider/theme_provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -74,6 +76,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(appTitle),
         centerTitle: true,
+        actions: [CycleThemeIconButton()],
       ),
       body: FutureBuilder(
         future: getRootAccess(),
@@ -89,38 +92,52 @@ class _HomeState extends State<Home> {
   Widget loadWidgets(AsyncSnapshot snapshot) {
     if (snapshot.connectionState == ConnectionState.done) {
       return LayoutBuilder(
-        builder: (context, constraints) => ListView(
+        builder: (context, constraints) => AnimationLimiter(
+          child: ListView(
             physics:
                 BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-            children: [
-              Container(
-                padding: EdgeInsets.all(20.0),
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight,
+            children: AnimationConfiguration.toStaggeredList(
+              duration: const Duration(milliseconds: 375),
+              children: [
+                Container(
+                  padding: EdgeInsets.all(20.0),
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      DetailCard(
+                        title: 'Root Access',
+                        subtitle: _rootStatus ? 'Granted' : 'Denied',
+                      ),
+                      FutureBuilder(
+                        future: checkVer(),
+                        builder: (context, snapshotStr) {
+                          if (snapshotStr.connectionState ==
+                              ConnectionState.done)
+                            return DetailCard(
+                              title: 'Current Firmware',
+                              subtitle: snapshotStr.data,
+                            );
+                          else
+                            return LoadingIndicator();
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    DetailCard(
-                      title: 'Root Access',
-                      subtitle: _rootStatus ? 'Granted' : 'Denied',
-                    ),
-                    FutureBuilder(
-                      future: checkVer(),
-                      builder: (context, snapshotStr) {
-                        if (snapshotStr.connectionState == ConnectionState.done)
-                          return DetailCard(
-                            title: 'Current Firmware',
-                            subtitle: snapshotStr.data,
-                          );
-                        else
-                          return LoadingIndicator();
-                      },
-                    ),
-                  ],
+              ],
+              childAnimationBuilder: (widget) => SlideAnimation(
+                horizontalOffset: 50.0,
+                child: FadeInAnimation(
+                  duration: const Duration(milliseconds: 375),
+                  child: widget,
                 ),
               ),
-            ]),
+            ),
+          ),
+        ),
       );
     }
 

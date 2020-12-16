@@ -3,6 +3,7 @@ import 'package:firmware_checker_m1/helperFunctions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firmware_checker_m1/constantVals.dart';
+import 'package:theme_provider/theme_provider.dart';
 
 void main() {
   runApp(RootApp());
@@ -12,13 +13,21 @@ void main() {
 class RootApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: appTitle,
-      themeMode: ThemeMode.system,
-      theme: getTheme(context, Brightness.light),
-      darkTheme: getTheme(context, Brightness.dark),
-      home: Home(),
+    return ThemeProvider(
+      themes: [
+        AppTheme(id: 'light', data: getTheme(context, Brightness.light)),
+        AppTheme(id: 'dark', data: getTheme(context, Brightness.dark)),
+      ],
+      child: ThemeConsumer(
+        child: Builder(
+          builder: (themeContext) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: appTitle,
+            theme: ThemeProvider.themeOf(themeContext).data,
+            home: Home(),
+          ),
+        ),
+      ),
     );
   }
 }
