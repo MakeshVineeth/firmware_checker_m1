@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
   );
 
   Future<bool> getRootAccess() async {
-    await Future.delayed(const Duration(seconds: 2),
+    await Future.delayed(const Duration(seconds: 1),
         () {}); // Nice Loading Indicator will be shown this way.
     bool rootStatus = await Root.isRooted();
     _rootStatus = rootStatus;
