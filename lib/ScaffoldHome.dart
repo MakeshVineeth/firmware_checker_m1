@@ -39,7 +39,6 @@ class _HomeState extends State<Home> {
         Map buildInfos = data['Metabuild_Info'];
         String timeStamp = buildInfos['Time_Stamp'];
         timeStamp = timeStamp.split(' ').elementAt(0);
-        timeStamp = '2020-11-08';
         String firmwareJsonFile = await DefaultAssetBundle.of(context)
             .loadString("assets/firmware.json");
         final jsonResult = json.decode(firmwareJsonFile) as Map;

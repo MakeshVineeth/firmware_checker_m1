@@ -48,7 +48,13 @@ Future<http.Response> getResponse(String url) async {
 
 void showAbout(BuildContext context) => showAboutDialog(
     context: context,
-    applicationIcon: ImageIcon(AssetImage('assets/logo.png')),
+    applicationIcon: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Image(
+        image: AssetImage('assets/logo.png'),
+        width: 50,
+      ),
+    ),
     applicationName: appTitle,
     applicationVersion: '1.0',
     applicationLegalese:
