@@ -26,15 +26,21 @@ ThemeData getTheme(BuildContext context, Brightness brightness) {
       backgroundColor: bg,
     ),
     appBarTheme: AppBarTheme(
-        color: bg,
-        textTheme: TextTheme(
-          headline6: Theme.of(context).textTheme.headline6.copyWith(
-                color: fg,
-              ),
-        ),
-        actionsIconTheme: IconThemeData(
-          color: brightness == Brightness.light ? Colors.red : Colors.amber,
-        )),
+      color: bg,
+      textTheme: TextTheme(
+        headline6: Theme.of(context).textTheme.headline6.copyWith(
+              color: fg,
+            ),
+      ),
+      elevation: 5,
+      iconTheme: IconThemeData(
+        color: brightness == Brightness.light ? Colors.red : Colors.amber,
+      ),
+      actionsIconTheme: IconThemeData(
+        color: brightness == Brightness.light ? Colors.red : Colors.amber,
+      ),
+      centerTitle: true,
+    ),
   );
 }
 

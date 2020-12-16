@@ -67,9 +67,9 @@ class _HomeState extends State<Home> {
 
       // Empty string if no root access.
       else
-        return '';
+        return '--';
     } catch (e) {
-      return '';
+      return '--';
     }
   }
 
@@ -79,7 +79,6 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Text(appTitle),
-        centerTitle: true,
         actions: [
           CycleThemeIconButton(),
           IconButton(
