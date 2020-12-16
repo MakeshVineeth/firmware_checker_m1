@@ -86,7 +86,8 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> setStatusBarColor() async {
-    await FlutterStatusbarcolor.setStatusBarColor(Colors.white);
+    await FlutterStatusbarcolor.setStatusBarColor(
+        Theme.of(context).scaffoldBackgroundColor);
   }
 
   Widget loadWidgets(AsyncSnapshot snapshot) {

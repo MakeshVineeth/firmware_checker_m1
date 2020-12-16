@@ -15,8 +15,16 @@ class RootApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ThemeProvider(
       themes: [
-        AppTheme(id: 'light', data: getTheme(context, Brightness.light)),
-        AppTheme(id: 'dark', data: getTheme(context, Brightness.dark)),
+        AppTheme(
+          id: 'light',
+          data: getTheme(context, Brightness.light),
+          description: 'light theme',
+        ),
+        AppTheme(
+          id: 'dark',
+          data: getTheme(context, Brightness.dark),
+          description: 'dark theme',
+        ),
       ],
       child: ThemeConsumer(
         child: Builder(

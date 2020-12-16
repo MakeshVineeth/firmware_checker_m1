@@ -14,14 +14,17 @@ ThemeData getTheme(BuildContext context, Brightness brightness) {
     brightness: brightness,
     scaffoldBackgroundColor: bg,
     cardColor: bg,
+    applyElevationOverlayColor: brightness == Brightness.dark,
     appBarTheme: AppBarTheme(
-      color: bg,
-      textTheme: TextTheme(
-        headline6: Theme.of(context).textTheme.headline6.copyWith(
-              color: fg,
-            ),
-      ),
-    ),
+        color: bg,
+        textTheme: TextTheme(
+          headline6: Theme.of(context).textTheme.headline6.copyWith(
+                color: fg,
+              ),
+        ),
+        actionsIconTheme: IconThemeData(
+          color: brightness == Brightness.light ? Colors.red : Colors.amber,
+        )),
   );
 }
 
