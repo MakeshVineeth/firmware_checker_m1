@@ -10,6 +10,7 @@ import 'dart:convert';
 import 'package:firmware_checker_m1/DetailCard.dart';
 import 'package:firmware_checker_m1/constantVals.dart';
 import 'package:theme_provider/theme_provider.dart';
+import "package:system_info/system_info.dart";
 
 class Home extends StatefulWidget {
   @override
@@ -20,12 +21,16 @@ class _HomeState extends State<Home> {
   bool _rootStatus = false;
   String firmwareVer;
   final verInfo = '/firmware/verinfo/ver_info.txt';
+  int megaByte = 1024 * 1024;
+
   final snack = SnackBar(
     content: Text('Refreshed.'),
     duration: const Duration(milliseconds: 375),
   );
 
   Future<bool> getRootAccess() async {
+    await Future.delayed(const Duration(seconds: 2),
+        () {}); // Nice Loading Indicator will be shown this way.
     bool rootStatus = await Root.isRooted();
     _rootStatus = rootStatus;
     return rootStatus;
@@ -132,6 +137,22 @@ class _HomeState extends State<Home> {
                       DetailCard(
                         title: 'Root Access',
                         subtitle: _rootStatus ? 'Granted' : 'Denied',
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      DetailCard(
+                        title: 'RAM',
+                        subtitle:
+                            '${SysInfo.getTotalPhysicalMemory() ~/ megaByte} MB',
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      DetailCard(
+                        title: 'Kernel',
+                        subtitle:
+                            '${SysInfo.kernelName} : ${SysInfo.kernelVersion}',
                       ),
                       SizedBox(
                         height: 10,
