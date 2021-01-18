@@ -36,6 +36,7 @@ class DetailCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   subtitle,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 17,
