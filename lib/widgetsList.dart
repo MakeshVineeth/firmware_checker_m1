@@ -1,4 +1,5 @@
 import 'package:firmware_checker_m1/currentFirmwareCard.dart';
+import 'package:firmware_checker_m1/netCard.dart';
 import 'package:firmware_checker_m1/security_patch.dart';
 import 'package:firmware_checker_m1/system_name.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,9 @@ class WidgetsList extends StatelessWidget {
                     SizedBox(height: 5),
                     SystemName(),
                     SizedBox(height: 5),
-                    SecurityPatch()
+                    SecurityPatch(),
+                    SizedBox(height: 5),
+                    NetCard()
                   ],
                 ),
               ),

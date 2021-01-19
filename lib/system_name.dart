@@ -15,10 +15,10 @@ class _SystemNameState extends State<SystemName> {
   @override
   void initState() {
     super.initState();
-    name = getSDKVersion();
+    name = getName();
   }
 
-  Future<String> getSDKVersion() async =>
+  Future<String> getName() async =>
       await SystemProperties.getSystemProperties('ro.product.system.name');
 
   @override
