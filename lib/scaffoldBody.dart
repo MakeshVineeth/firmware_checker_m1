@@ -3,25 +3,11 @@ import 'package:firmware_checker_m1/widgetsList.dart';
 import 'package:flutter/material.dart';
 import 'package:firmware_checker_m1/loadingIndicator.dart';
 
-class ScaffoldBody extends StatefulWidget {
-  @override
-  _ScaffoldBodyState createState() => _ScaffoldBodyState();
-}
-
-class _ScaffoldBodyState extends State<ScaffoldBody> {
-  Future<bool> _futureRef;
-
-  @override
-  void initState() {
-    super.initState();
-    _futureRef = getRootAccess();
-  }
-
-  @override
+class ScaffoldBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       key: UniqueKey(),
-      future: _futureRef,
+      future: getRootAccess(),
       builder: (context, snapshot) => loadWidgets(snapshot),
     );
   }
