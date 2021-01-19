@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:system_properties/system_properties.dart';
 
-class SystemName extends StatefulWidget {
+class SecurityPatch extends StatefulWidget {
   @override
-  _SystemNameState createState() => _SystemNameState();
+  _SecurityPatchState createState() => _SecurityPatchState();
 }
 
-class _SystemNameState extends State<SystemName> {
+class _SecurityPatchState extends State<SecurityPatch> {
   Future<String> name;
   final title = 'Android Security Patch';
 
@@ -19,25 +19,29 @@ class _SystemNameState extends State<SystemName> {
   }
 
   Future<String> getSDKVersion() async {
-    String str = await SystemProperties.getSystemProperties(
-        'ro.build.version.real_security_patch');
-
-    if (str == null) {
-      str = await SystemProperties.getSystemProperties(
-          'ro.build.version.security_patch_real');
+    try {
+      String str = await SystemProperties.getSystemProperties(
+          'ro.build.version.real_security_patch');
 
       if (str == null) {
         str = await SystemProperties.getSystemProperties(
-            'ro.build.version.security_patch');
+            'ro.build.version.security_patch_real');
+
+        if (str == null) {
+          str = await SystemProperties.getSystemProperties(
+              'ro.build.version.security_patch');
+        }
       }
-    }
 
-    if (str != null) {
-      DateTime dateTime = DateTime.tryParse(str);
-      str = DateFormat.yMMMMd('en_US').format(dateTime);
-    }
+      if (str != null) {
+        DateTime dateTime = DateFormat('yyyy-mm-dd').parse(str);
+        str = DateFormat.yMMMMd('en_US').format(dateTime);
+      }
 
-    return str ?? '--';
+      return str ?? '--';
+    } catch (e) {
+      return '--';
+    }
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:firmware_checker_m1/constantVals.dart';
+import 'package:intl/intl.dart';
 import 'package:root/root.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
@@ -82,12 +83,12 @@ Future<String> checkVer(
         return jsonResult[timeStamp];
       else {
         // Check for 305fw.
-        DateTime from = DateTime.tryParse('2018-04-29'); // 252
-        DateTime to = DateTime.tryParse('2018-06-08'); // 309
-        DateTime cur = DateTime.tryParse(timeStamp);
+        DateTime from = DateFormat('yyyy-mm-dd').parse('2018-04-29'); // 252
+        DateTime to = DateFormat('yyyy-mm-dd').parse('2018-06-08'); // 309
+        DateTime cur = DateFormat('yyyy-mm-dd').parse(timeStamp);
 
         if (cur.isBefore(to) && cur.isAfter(from))
-          return '305'; // Checking this way as Asus itself uploaded corrupt built online.
+          return '305'; // Checking this way as Asus itself uploaded corrupt build online.
 
         // if timestamp not present in local json file, check in web now.
         Response response = await getResponse(webUrl);

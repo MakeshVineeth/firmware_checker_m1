@@ -48,7 +48,7 @@ class _HomeState extends State<Home> {
   doUpdate(BuildContext context) async {
     await getRootAccess();
     setState(() {
-      _currentWidget = ScaffoldBody();
+      _currentWidget = new ScaffoldBody();
     });
 
     ScaffoldMessenger.of(context).showSnackBar(snack);
