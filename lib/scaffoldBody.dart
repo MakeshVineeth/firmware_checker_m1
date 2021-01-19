@@ -20,6 +20,7 @@ class _ScaffoldBodyState extends State<ScaffoldBody> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
+      key: UniqueKey(),
       future: _futureRef,
       builder: (context, snapshot) => loadWidgets(snapshot),
     );

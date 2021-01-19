@@ -6,11 +6,18 @@ import 'package:firmware_checker_m1/constantVals.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final snack = SnackBar(
     content: Text('Refreshed.'),
     duration: const Duration(milliseconds: 375),
   );
+
+  Widget _currentWidget = ScaffoldBody();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +34,10 @@ class Home extends StatelessWidget {
           )
         ],
       ),
-      body: ScaffoldBody(),
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 800),
+        child: _currentWidget,
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => doUpdate(context),
         child: Icon(Icons.refresh_rounded),
@@ -37,6 +47,10 @@ class Home extends StatelessWidget {
 
   doUpdate(BuildContext context) async {
     await getRootAccess();
+    setState(() {
+      _currentWidget = ScaffoldBody();
+    });
+
     ScaffoldMessenger.of(context).showSnackBar(snack);
   }
 
