@@ -1,4 +1,5 @@
 import 'package:firmware_checker_m1/currentFirmwareCard.dart';
+import 'package:firmware_checker_m1/system_name.dart';
 import 'package:flutter/material.dart';
 import 'package:firmware_checker_m1/DetailCard.dart';
 import "package:system_info/system_info.dart";
@@ -48,6 +49,7 @@ class WidgetsList extends StatelessWidget {
                     ),
                     SizedBox(height: 5),
                     CurrentFirmware(rootStatus: rootStatus),
+                    SystemName()
                   ],
                 ),
               ),

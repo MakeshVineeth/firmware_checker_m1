@@ -1,29 +1,29 @@
 import 'package:firmware_checker_m1/DetailCard.dart';
 import 'package:flutter/material.dart';
-import 'package:firmware_checker_m1/helperFunctions.dart';
+import 'package:system_properties/system_properties.dart';
 
-class CurrentFirmware extends StatefulWidget {
-  final bool rootStatus;
-  const CurrentFirmware({@required this.rootStatus});
-
+class SystemName extends StatefulWidget {
   @override
-  _CurrentFirmwareState createState() => _CurrentFirmwareState();
+  _SystemNameState createState() => _SystemNameState();
 }
 
-class _CurrentFirmwareState extends State<CurrentFirmware> {
-  Future<String> ver;
-  final title = 'Current Firmware';
+class _SystemNameState extends State<SystemName> {
+  Future<String> name;
+  final title = 'System Name';
 
   @override
   void initState() {
     super.initState();
-    ver = checkVer(rootStatus: widget.rootStatus, context: context);
+    name = getSDKVersion();
   }
+
+  Future<String> getSDKVersion() async =>
+      await SystemProperties.getSystemProperties('ro.product.system.name');
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: ver,
+      future: name,
       builder: (context, snapshotStr) {
         if (snapshotStr.connectionState == ConnectionState.done)
           return DetailCard(
