@@ -119,4 +119,4 @@ void showAbout(BuildContext context) => showAboutDialog(
     applicationName: appTitle,
     applicationVersion: '2.0',
     applicationLegalese:
-        'This app tells you the current firmware of your Asus Zenfone Max Pro M1. If your current firmware is newer than what is available in offline database, then it will do an online check for the same and give you the firmware information. App Made by @DaftPunker007. Thanks to @ShanuDey for his initial firmware data.');
+        'This app tells you the current firmware of your Asus Zenfone Max Pro M1. If your current firmware is newer than what is available in offline database, then it will do an online check for the same and give you the firmware information. App Made by Makesh Vineeth. Thanks to @ShanuDey for his initial firmware data.');
