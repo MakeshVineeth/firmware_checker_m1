@@ -70,7 +70,10 @@ Future<String> checkVer(
       Map data = jsonDecode(contents);
       Map buildInfos = data['Metabuild_Info'];
       String timeStamp = buildInfos['Time_Stamp'];
-      timeStamp = timeStamp.split(' ').elementAt(0);
+      timeStamp = timeStamp
+          .split(' ')
+          .elementAt(0); // getting only the date time stamp here
+
       String firmwareJsonFile = await DefaultAssetBundle.of(context)
           .loadString("assets/firmware.json");
       final jsonResult = json.decode(firmwareJsonFile) as Map;
@@ -78,6 +81,14 @@ Future<String> checkVer(
       if (jsonResult.containsKey(timeStamp))
         return jsonResult[timeStamp];
       else {
+        // Check for 305fw.
+        DateTime from = DateTime.tryParse('2018-04-29'); // 252
+        DateTime to = DateTime.tryParse('2018-06-08'); // 309
+        DateTime cur = DateTime.tryParse(timeStamp);
+
+        if (cur.isBefore(to) && cur.isAfter(from))
+          return '305'; // Checking this way as Asus itself uploaded corrupt built online.
+
         // if timestamp not present in local json file, check in web now.
         Response response = await getResponse(webUrl);
         Map webJson = jsonDecode(response.body);
