@@ -10,7 +10,7 @@ class NetCard extends StatefulWidget {
 
 class _NetCardState extends State<NetCard> {
   String name = '--';
-  final title = 'Network Speed';
+  final title = 'Download Speed';
   final internetSpeedTest = InternetSpeedTest();
 
   @override
@@ -19,7 +19,7 @@ class _NetCardState extends State<NetCard> {
     getSpeed();
   }
 
-  String unitStr(int index) => (index == 0) ? ' Kbps' : ' Mbps';
+  String unitStr(int index) => (index == 0) ? ' Kb/s' : ' Mb/s';
 
   Future<void> getSpeed() async {
     internetSpeedTest.startDownloadTesting(
